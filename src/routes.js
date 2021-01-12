@@ -1,4 +1,4 @@
-function App() {
+const Routes = (props) => {
   return (
     <div>
       hello
@@ -6,4 +6,4 @@ function App() {
   );
 }
 
-export default App;
+export default Routes;
