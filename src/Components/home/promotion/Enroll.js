@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Fade from 'react-reveal/Fade';
 import FormField from '../../ui/formFields';
+import { validate } from '../../ui/misc';
 
 class Enroll extends Component {
 
@@ -26,8 +27,44 @@ class Enroll extends Component {
         }
     }
 
-    submitForm() {
+    submitForm(event) {
+        event.preventDefault();
 
+        let dataToSubmit = {};
+        let formIsValid = true;
+
+        for(let key in this.state.formdata) {
+            dataToSubmit[key] = this.state.formdata[key].value;
+            formIsValid = this.state.formdata[key].valid && formIsValid;
+        }
+
+        if(formIsValid) {
+            
+        } else {
+            this.setState({
+                formError: true
+            })
+        }
+        
+        console.log(dataToSubmit);
+    }
+
+    updateForm(element) {
+        const newFormdata = {...this.state.formdata};
+        const newElement = {...newFormdata[element.id]};
+
+        newElement.value = element.event.target.value;
+
+        let valiData = validate(newElement);
+        newElement.valid = valiData[0];
+        newElement.validationMessage = valiData[1];
+
+        newFormdata[element.id] = newElement;
+
+        this.setState({
+            formError: false,
+            formdata: newFormdata
+        });
     }
 
     render() {
@@ -42,7 +79,12 @@ class Enroll extends Component {
                             <FormField 
                                 id={'email'}
                                 formdata={this.state.formdata.email}
+                                change={(element)=> this.updateForm(element)}
                             />
+                            {this.state.formError ? 
+                                <div className="error_label">Something went wrong.Try again.</div> 
+                                : null}
+                            <button onClick={(event)=>this.submitForm(event)}>Enroll</button>
                         </div>
                     </form>
                 </div>
