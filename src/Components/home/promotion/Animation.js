@@ -7,7 +7,7 @@ const PromotionAnimation = () => {
         <div className="promotion_animation">
             <div className="left">
                 <Zoom>
-                    <div>
+                    <div style={{color: '#0d1831'}}>
                         <span>Win a</span>
                         <span>Jersey</span>
                     </div>
