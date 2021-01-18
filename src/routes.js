@@ -4,15 +4,15 @@ import Home from './Components/home';
 import SignIn from './Components/signin';
 import Dashboard from './Components/admin/Dashboard';
 import PrivateRoute from './Components/authRoutes/privateRoutes';
+import PublicRoute from './Components/authRoutes/publicRoutes';
 
 const Routes = (props) => {
   return (
     <Layout>
       <Switch>
         <PrivateRoute {...props} path='/dashboard' exact component={Dashboard}/>
-        <Route exact component={Dashboard} path='/dashboard' />
-        <Route exact component={SignIn} path='/sign_in' />
-        <Route exact component={Home} path="/" />
+        <PublicRoute {...props} restricted={true} path="/" exact component={Home} />
+        <PublicRoute {...props} restricted={false} path='/sign_in' exact component={SignIn} />
       </Switch>
     </Layout>
   );
